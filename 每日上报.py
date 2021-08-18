@@ -2,7 +2,6 @@ import os
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
-
 print('初始化浏览器')
 USERNAME   = os.environ['ID']
 PASSWORD   = os.environ['PASSWORD']
@@ -12,13 +11,11 @@ option = webdriver.ChromeOptions()
 option.headless = True
 option.add_argument('user-agent='+ua)
 driver = webdriver.Chrome(executable_path= '/usr/bin/chromedriver', options = option)
-
 print('正在上报')
 driver.get('https://ids.hit.edu.cn/authserver/')
 driver.find_element_by_id('mobileUsername').send_keys(USERNAME)
 driver.find_element_by_id('mobilePassword').send_keys(PASSWORD)
 driver.find_element_by_id('load').click()
-
 success = False
 for i in range (0, 5):
 	try:
@@ -40,6 +37,10 @@ for i in range (0, 5):
 		driver.find_element_by_id('checkbox').click()
 		driver.execute_script('save()')
 		driver.execute_script('document.getElementsByClassName("weui-dialog__btn primary")[0].click()')
+		driver.get('https://xg.hit.edu.cn/zhxy-xgzs/xg_mobile/xsMrsbNew')
+		driver.execute_script(f'kzl10 = "{LOCATION}"')
+		driver.execute_script('document.getElementById("txfscheckbox").click()')
+		driver.find_element_by_class_name('submit').click()
 		success = True
 		break
 	except:
